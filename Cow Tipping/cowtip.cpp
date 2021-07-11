@@ -4,49 +4,43 @@
 
 using namespace std;
 
-void cow_tipper(vector<int> pos1, vector<int> pos2, vector<vector<int>> &cows) {
-    for (int index = pos1[0]; index < pos2[0] + 1; index++) {
-        for (int index2 = pos1[1]; index2 < pos2[1] + 1; index2++) {
-            if (cows[index][index2] == 1) {
-                cows[index][index2] = 0;
-            } else {
-                cows[index][index2] = 1;
-            }
+void cow_tipper(int pos1_x, int pos1_y, int pos2_x, int pos2_y, vector<vector<int>> &cows) {
+    for (int index = pos1_x; index < pos2_x + 1; index++) {
+        for (int index2 = pos1_y; index2 < pos2_y + 1; index2++) {
+            cows[index][index2] = 1 - cows[index][index2];  // flips the cow (converts 1 to 0 and 0 to 1)
         }
     }
 }
     
 
 int main() {
-    fstream input("cowtip.in", ios::in);
+    ifstream input("cowtip.in");
 
-    string line;
-    getline(input, line);
-    int cows_length = stoi(line) - 1;
+    string first_line;
+    getline(input, first_line);
 
     vector<vector<int>> cows;
 
     for (string line; getline(input, line);) {
         vector<int> current_line = {};
         for (char ch: line) {
-            current_line.push_back((int)ch);
+            current_line.push_back(ch - '0');
         }
+        cows.push_back(current_line);
     }
-    
     input.close();
 
     int cow_tippers_used = 0;
-    for (int index = cows_length; index < -1; index--) {
-        int cows_sublist_length = cows[index].size() - 1;
-        for (int index2 = cows_sublist_length; index2 < -1; index2--) {
+    for (int index = stoi(first_line) - 1; index > -1; index--) {
+        for (int index2 = cows[index].size() - 1; index2 > -1; index2--) {
             if (cows[index][index2] == 1) {
-                cow_tipper({0, 0}, {index, index2}, cows);
+                cow_tipper(0, 0, index, index2, cows);
                 cow_tippers_used += 1;
             }
         }
     }
 
-    fstream output("cowtip.out", ios::out);
+    ofstream output("cowtip.out");
     output << cow_tippers_used << endl;
     output.close();
 }
