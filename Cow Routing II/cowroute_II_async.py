@@ -1,3 +1,5 @@
+# This file is not gaurenteed to work and is a complete disaster.
+
 import asyncio
 with open("cowroute.in", "r") as file1:    
     A, B, N = map(int, file1.readline().strip().split(" "))
