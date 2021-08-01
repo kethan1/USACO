@@ -18,8 +18,8 @@ for index, cow in enumerate(cows):
     if index == len(cows) - 1:
         area_covered[index] = [area_covered[index-1][1], B]
         if cow[0] == "S":
-            if B - area_covered[index][0] > 0:
-                spotted += (B - area_covered[index][0])
+            if B - area_covered[index][0] != 0:
+                spotted += B - area_covered[index][0] + 1
         print(index, cow, area_covered[index][1] - area_covered[index][0])
     else:
         end_point = (cows[index+1][1] + cow[1]) / 2
@@ -36,10 +36,7 @@ for index, cow in enumerate(cows):
         if cow[0] == "S":
             if area_covered[index][1] - area_covered[index][0] < 0:
                 print(index, cow)
-            if index != 0 and (area_covered[index][1] - area_covered[index][0]) != 0:
-                spotted += (area_covered[index][1] - area_covered[index][0])
-            else:
-                spotted += area_covered[index][1] - area_covered[index][0]
+            spotted += area_covered[index][1] - area_covered[index][0]
         print(index, cow, area_covered[index][1] - area_covered[index][0])
 # print(area_covered)
 

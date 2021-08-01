@@ -11,7 +11,7 @@ void cow_tipper(int pos2_x, int pos2_y, vector<vector<int>> &cows) {
         }
     }
 }
-    
+
 
 int main() {
     ifstream input("cowtip.in");
