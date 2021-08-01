@@ -25,7 +25,7 @@ int main() {
 
     for (auto it(cows_sorted.begin()); it != cows_sorted.end(); it++) {
         if (*it != cows[distance(cows_sorted.begin(), it)]) {
-            swaps += 1;
+            swaps++;
         }
     }
 
