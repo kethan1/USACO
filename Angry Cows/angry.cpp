@@ -5,7 +5,7 @@
 
 using namespace std;
 
-set<int> blast(set<int> hay_bales, int bale_shot, int blast_radius = 1) {
+set<int> blast(set<int> &hay_bales, int bale_shot, int blast_radius = 1) {
     set<int> exploded;
     for (int hay_bale: hay_bales) {
         if (0 < abs(hay_bale - bale_shot) && abs(hay_bale - bale_shot) <= blast_radius) {
@@ -15,7 +15,7 @@ set<int> blast(set<int> hay_bales, int bale_shot, int blast_radius = 1) {
     for (int hay_bale_exploded: exploded) {
         set<int> bale_chain_reaction;
         for (int hay_bale2: hay_bales) {
-            if (exploded.count(hay_bale2) == 0 && hay_bale2 != bale_shot) {
+            if (!exploded.count(hay_bale2) && hay_bale2 != bale_shot) {
                 bale_chain_reaction.insert(hay_bale2);
             }
         }
