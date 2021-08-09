@@ -1,71 +1,44 @@
-file = open("mixmilk.in", "r")
+with open("mixmilk.in", "r") as input_file:
+    bucket1 = list(map(int, input_file.readline().split()))
+    bucket2 = list(map(int, input_file.readline().split()))
+    bucket3 = list(map(int, input_file.readline().split()))
+    print(bucket1, bucket2, bucket3)
 
-a = file.readline().strip().split()
-b = file.readline().strip().split()
-c = file.readline().strip().split()
-
-b1c = int(a[0])
-b1a = int(a[1])
-b2c = int(b[0])
-b2a = int(b[1])
-b3c = int(c[0])
-b3a = int(c[1])
-cycles = 0
-nextob = 1
-minus = 1
-
-file.close()
-
-while cycles < 101:
-    cycles+=1
-    if nextob == 1:
-        if b1a+b2a > b2c:
-            while True:
-                if (b1a-minus)+b2a <= b2c:
-                    b2a = (b1a-minus)+b2a
-                    b1a = b1a-(b1a-minus)
-                    break
-                else:
-                    minus+=1
+# 0 for bucket1 to bucket2, 1 for bucket2 to bucket3, 2 for bucket1 to bucket3
+spot = 0
+for _ in range(100):
+    if spot == 0:
+        # Move bucket1 to bucket2
+        if bucket1[1] + bucket2[1] <= bucket2[0]:
+            bucket2[1] += bucket1[1]
+            bucket1[1] = 0
         else:
-            b2a = b2a+b1a
-            b1a = 0
-        nextob +=1
-        minus = 1
+            capacity_left = bucket2[0] - bucket2[1]
+            bucket2[1] = bucket2[0]
+            bucket1[1] -= capacity_left
+        spot = 1
 
-    
-    if nextob == 2:
-        if b2a+b3a > b3c:
-            while True:
-                if (b2a-minus)+b3a <= b3c:
-                    b3a = (b2a-minus)+b3a
-                    b2a = b2a-(b2a-minus)
-                    break
-                else:
-                    minus+=1
+    elif spot == 1:
+        # Move bucket2 to bucket3
+        if bucket2[1] + bucket3[1] <= bucket3[0]:
+            bucket3[1] += bucket2[1]
+            bucket2[1] = 0
         else:
-            b3a = b3a+b2a
-            b2a = 0
-        nextob +=1
-        minus = 1
-    
-    if nextob == 3:
-        if b3a+b1a > b1c:
-            while True:
-                if (b3a-minus)+b1a <= b1c:
-                    b1a = (b3a-minus)+b1a
-                    b3a = b3a-(b3a-minus)
-                    break
-                else:
-                    minus+=1
+            capacity_left = bucket3[0] - bucket3[1]
+            bucket3[1] = bucket3[0]
+            bucket2[1] -= capacity_left
+        spot = 2
+
+    elif spot == 2:
+        # Move bucket3 to bucket1
+        if bucket3[1] + bucket1[1] <= bucket1[0]:
+            bucket1[1] += bucket3[1]
+            bucket3[1] = 0
         else:
-            b1a = b1a+b3a
-            b3a = 0
-        nextob = 1
-        minus = 1
+            capacity_left = bucket1[0] - bucket1[1]
+            bucket1[1] = bucket1[0]
+            bucket3[1] -= capacity_left
+        spot = 0
 
-file2 = open("mixmilk.out", "w")
-
-print(b1a, b2a, b3a, sep="\n", file=file2)
-
-file2.close()
+with open('mixmilk.out', 'w') as output_file:
+    output_file.write(f'{bucket1[1]}\n{bucket2[1]}\n{bucket3[1]}')
