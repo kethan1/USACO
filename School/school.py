@@ -3,20 +3,21 @@ with open("school.in", "r") as file1:
 
 initial, min_number, max_number, min_number_dct, max_number_dct = True, 0, 0, {}, {}
 
+
 def day_str(x):
-    if x == 0: return 'Monday'
-    elif x == 1: return 'Tuesday'
-    elif x == 2: return 'Wednesday'
-    elif x == 3: return 'Thursday'
-    elif x == 4: return 'Friday'
+    return 'Monday' if x == 0 else \
+        'Tuesday' if x == 1 else \
+        'Wednesday' if x == 2 else \
+        'Thursday' if x == 3 else 'Friday'
+
 
 def subject_str(x):
-    if x == 0: return 'History'
-    elif x == 1: return 'Chemistry'
-    elif x == 2: return 'Mathematics'
-    elif x == 3: return 'English'
-    elif x == 4: return 'Psychology'
-    elif x == 5: return 'Biology'
+    return 'History' if x == 0 else \
+        'Chemistry' if x == 1 else \
+        'Mathematics' if x == 2 else \
+        'English' if x == 3 else \
+        'Psychology' if x == 4 else 'Biology'
+
 
 for day in classes:
     for subject in day:
