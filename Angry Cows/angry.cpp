@@ -26,22 +26,24 @@ set<int> blast(set<int> &hay_bales, int bale_shot, int blast_radius = 1) {
 }
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    
     fstream input("angry.in", ios::in);
-    set<int> g1;
+    set<int> hay_bales;
 
     string line;
     getline(input, line);
 
     for (string line; getline(input, line);) {
-        g1.insert(stoi(line));
+        hay_bales.insert(stoi(line));
     }
     input.close();
 
     int max_size = 0;
 
-    for (int cow: g1) {
-        set<int> chain_reaction_output = blast(g1, cow);
-        chain_reaction_output.insert(cow);
+    for (int bale_shot: hay_bales) {
+        set<int> chain_reaction_output = blast(hay_bales, bale_shot);
+        chain_reaction_output.insert(bale_shot);
         max_size = max(max_size, int(chain_reaction_output.size()));
     }
 
