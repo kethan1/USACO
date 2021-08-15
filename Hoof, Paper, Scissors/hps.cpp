@@ -38,20 +38,16 @@ int main() {
     }
         
     vector<int> possibilites;
-    for(vector<string> permutation: permutations) {
-        int x = 0;
-        for (vector<int> move: input_data) {
+    for(const vector<string>& permutation: permutations) {
+        int games_won = 0;
+        for (const vector<int>& move: input_data) {
             string move1L = permutation[move[0] - 1];
             string move2L = permutation[move[1] - 1];
-            if (move1L == "R" && move2L == "S") {
-                x += 1;
-            } else if (move1L == "S" && move2L == "P")  {
-                x += 1;
-            } else if (move1L == "P" && move2L == "R") {
-                x += 1;
+            if ((move1L == "R" && move2L == "S") || (move1L == "S" && move2L == "P") || (move1L == "P" && move2L == "R")) {
+                games_won += 1;
             }
         }
-        possibilites.push_back(x);
+        possibilites.push_back(games_won);
     }
 
     fstream MyFile("hps.out", ios::out);

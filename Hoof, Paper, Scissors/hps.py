@@ -6,15 +6,15 @@ with open("hps.in") as input_file:
 
 
 def won(moves):
-    n = []
+    possibilites = []
     for permutation in itertools.permutations(["R", "P", "S"]):
-        x = 0
+        games_won = 0
         for move in moves:
             move1L, move2L = permutation[move[0] - 1], permutation[move[1] - 1]
             if (move1L == "R" and move2L == "S") or (move1L == "S" and move2L == "P") or (move1L == "P" and move2L == "R"):
-                x += 1
-        n.append(x)
-    return max(n)
+                games_won += 1
+        possibilites.append(games_won)
+    return max(possibilites)
 
 
 with open("hps.out", "w") as output_file:
