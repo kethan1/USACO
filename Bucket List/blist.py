@@ -1,16 +1,9 @@
 with open("blist.in", "r") as input_file:
     input_file.readline()
-    cows = []
-    for line in input_file.readlines():
-        line = line.strip().split()
-        for num in line:
-            line[line.index(num)] = int(num)
-        cows.append(line)
+    cows = sorted([list(map(int, line.strip().split())) for line in input_file], key=lambda x: x[0])
 
 buckets = sum([cow[2] for cow in cows])
 buckets_in_list = {key: (False, False) for key in range(buckets)}
-
-cows.sort(key=lambda x: x[0])
 
 returns = {cow[1]: cow[2] for cow in cows}
 
@@ -43,10 +36,8 @@ for cow in cows:
                 buckets_in_list[key] = (True, True)
             if a == cow[2]:
                 break
-    if a == cow[2]:
-        pass
-    else:
-        needed = cow[2]-a
+    if a != cow[2]:
+        needed = cow[2] - a
         fullfilled = 0
         for key, value in buckets_in_list.items():
             if fullfilled < needed:
