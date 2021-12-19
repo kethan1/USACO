@@ -15,12 +15,9 @@ for cow in cows:
         sorted_cows.remove(cow)
         sorted_cows.append(cow)
     else:
-        i = -1
-        n = sorted_cows[i]
+        i = len(cows) - 1
         while cow < sorted_cows[i]:
             i -= 1
-            if i < 0 or n < sorted_cows[i]:
-                break
         sorted_cows.remove(cow)
         sorted_cows.insert(i, cow)
     t += 1
