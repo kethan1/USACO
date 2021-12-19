@@ -40,10 +40,10 @@ int main() {
 
     for (int shell_start = 1; shell_start < 4; shell_start++) {
         shells[shell_start] = 1;
-        int index = shell_start - 1;
+
         for (std::vector<int> &move: switches_and_guesses) {
             std::swap(shells.at(move[0]), shells.at(move[1]));
-            correct_guesses[index] += shells[move[2]];
+            correct_guesses[shell_start - 1] += shells[move[2]];
         }
 
         shells = {
