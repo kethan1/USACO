@@ -50,9 +50,9 @@ int main() {
         possibilites.push_back(games_won);
     }
 
-    fstream MyFile("hps.out", ios::out);
-    MyFile << *max_element(possibilites.begin(), possibilites.end()) << endl;
-    MyFile.close();
+    fstream output("hps.out", ios::out);
+    output << *max_element(possibilites.begin(), possibilites.end()) << endl;
+    output.close();
 
     return 0;
 }
