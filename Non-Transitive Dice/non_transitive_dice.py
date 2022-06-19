@@ -28,4 +28,9 @@ def wins(a, b):
 
 for test_case in test_cases:
     a, b = test_case
-    print(next(("yes" for c in possible_dice if (wins(a, b) and wins(b, c) and wins(c, a)) or (wins(c, b) and wins(b, a) and wins(a, c))), "no"))
+    for c in possible_dice:
+        if (wins(a, b) and wins(b, c) and wins(c, a)) or (wins(c, b) and wins(b, a) and wins(a, c)):
+            print("yes")
+            break
+    else:
+        print("no")
