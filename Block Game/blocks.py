@@ -1,32 +1,20 @@
-ans = {}
-for thing in range(97, 123):
-    ans[chr(thing)] = 0
+import string
+from collections import Counter
+
 
 with open("blocks.in", "r") as input_file:
-    input_file.readline()
+    N = int(input_file.readline())
+    words = list(map(lambda line: line.strip().split(), input_file.readlines()))
 
-    words = []
-    letters = []
 
-    for line in input_file:
-        line = line.strip().split(" ")
-        words.append(line)
-        letters.append([])
+min_letters = {chr(char): 0 for char in range(ord("a"), ord("z") + 1)}
+empty = {chr(char): 0 for char in range(ord("a"), ord("z") + 1)}
 
-for pair in words:
-    b = words.index(pair)
-    for word in pair:
-        for letter in word:
-            letters[b].append(letter)
-
-for thing in letters:
-    b = letters.index(thing)
-    letters[b] = list(set(thing))
-
-for letter_pairs in letters:
-    for letter in letter_pairs:
-        ans[letter] += 1
+for (word1, word2) in words:
+    word1_freqs = {**empty, **Counter(word1)}
+    word2_freqs = {**empty, **Counter(word2)}
+    for letter in string.ascii_lowercase:
+        min_letters[letter] += max(word1_freqs[letter], word2_freqs[letter])
 
 with open("blocks.out", "w") as output_file:
-    for key, value in ans.items():
-        print(value, file=output_file)
+    print(*min_letters.values(), file=output_file, sep="\n")
